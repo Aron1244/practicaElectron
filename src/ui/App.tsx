@@ -7,7 +7,11 @@ function App() {
 
   useEffect(() => {
     // @ts-ignore
-    window.Electron.subscribeStatistics((stats) => console.log(stats));
+    if (window.electron && window.electron.subscribeStatistics) {
+      window.electron.subscribeStatistics((stats: any) => console.log(stats));
+    } else {
+      console.error('window.electron.subscribeStatistics no está disponible');
+    }
   }, []);
 
   return (
